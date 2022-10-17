@@ -89,17 +89,17 @@ Point EC_add(EC E, Point P, Point Q){
     Point R;
 
     //람다 구하기
-    int lamda = ((Q.y - P.y) * mod_inv(Q.x - P.x, E.p));
-    while (lamda < 0) lamda += E.p; // ->
-    lamda %= E.p;
+    int lambda = ((Q.y - P.y) * mod_inv(Q.x - P.x, E.p));
+    while (lambda < 0) lambda += E.p; // ->
+    lambda %= E.p;
      
     // x
-    R.x = lamda * lamda - P.x - Q.x;
+    R.x = lambda * lambda - P.x - Q.x;
     while (R.x < 0) R.x += E.p; // ->
     R.x %= E.p;
 
     // y
-    R.y = lamda * (P.x - R.x) - P.y;
+    R.y = lambda * (P.x - R.x) - P.y;
     while (R.y < 0) R.y += E.p; // ->
     R.y %= E.p;
 
@@ -114,17 +114,17 @@ Point EC_double(EC E, Point P){
     Point R;
 
     // 람다
-    int lamda = ((3*(P.x*P.x)+ E.a) * mod_inv(2*P.y, E.p));
-    while (lamda < 0) lamda += E.p; // ->
-    lamda %= E.p;
+    int lambda = ((3*(P.x*P.x)+ E.a) * mod_inv(2*P.y, E.p));
+    while (lambda < 0) lambda += E.p; // ->
+    lambda %= E.p;
 
     // x
-    R.x = ((lamda * lamda) - 2*P.x);
+    R.x = ((lambda * lambda) - 2*P.x);
     while (R.x < 0) R.x += E.p; // ->
     R.x %= E.p;
 
     // y
-    R.y = (lamda * (P.x - R.x) - P.y) % E.p;
+    R.y = (lambda * (P.x - R.x) - P.y) % E.p;
     while (R.y < 0) R.y += E.p; // ->
     R.y %= E.p;
 
